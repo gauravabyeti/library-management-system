@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<div id="availablebook">
+<h1  >Retrieve the available book</h1>
+<button type="button" onclick="loadDoc()" >click me</button>
+</div>
+<div id ="suggestion">
+<h1  >Check the suggestion</h1>
+<button type="button" onclick="loadSugg()" >click me</button>
+</div>
+<div id ="studentdetail">
+<h1  >Book issued by student</h1>
+<form action="">
+  StudentID:
+  <input type="number" name="studentid"  id="studentid" >
+  <br>
+  </form> 
+<button type="button" onclick="loadIssued()" >click me</button>
+</div>
+
+<div id ="bookdetails">
+<h1  >Enter the book details</h1>
+<form action="">
+  Title:
+  <input type="text" name="title"  id="title" >
+   Category:
+  <input type="text" name="category"  id="category" >
+   Author:
+  <input type="text" name="author"  id="author" >
+  <br>
+  </form> 
+<button type="button" onclick="loadDetails()" >click me</button>
+</div>
+
+<div id ="numberofbook">
+<h1  >Number of books</h1>
+<form action="">
+  BookId
+  <input type="number" name="bookid"  id="bookid" >
+   NumberofBooks:
+  <input type="number" name="bookno"  id="bookno" >
+  <br>
+  </form> 
+<button type="button" onclick="NumberOfBook()" >click me</button>
+</div>
+
+<div id ="issuebook">
+<h1  >Issue book to student</h1>
+<form action="">
+  BookId:
+  <input type="number" name="bookidd"  id="bookidd" >
+  IssueDate:
+  <input type="date" name="issuedate"  id="issuedate" >
+  ReturnDate:
+  <input type="date" name="returndate"  id="returndate" >
+  StudentId:
+  <input type="number" name="studid"  id="studid" >
+  <br>
+  </form> 
+<button type="button" onclick="IssueBook()" >click me</button>
+</div>
+<script>
+
+	function loadDoc() {
+		  var xhttp = new XMLHttpRequest();
+		  xhttp.onreadystatechange = function() {
+		    if (this.readyState == 4 && this.status == 200) {
+		    	var obj = JSON.parse(this.responseText);
+		    	
+		    	//document.getElementById("demo").innerHTML =this.responseText; 
+		    	var txt=" ";
+		    	txt += "<table border='1'>"
+		    	  var i,j
+		    	  txt+="<tr><td>Number of book"+"</td>"+"<td>bookid"+"</td>"+"<td>title"+"</td>"+"<td>author"+"</td>"+"<td>category"+"</td></tr>"
+		            for (i in obj) {
+		                 txt += "<tr><td>" + obj[i].numberofbook + "</td>"+ " <td>"+ obj[i].bookdetails.id +"</td>"+ " <td>"+ obj[i].bookdetails.title+ " <td>"+ obj[i].bookdetails.author+  " <td>"+ obj[i].bookdetails.category+"</td> </tr>";
+		                    //for(j in obj[i].bookdetails){
+		                      //   txt+=" <td>"+ obj[i].bookdetails[j].id +"</td>"+ " <td>"+ obj[i].bookdetails[j].title+ " <td>"+ obj[i].bookdetails[j].author+  " <td>"+ obj[i].bookdetails[j].category+"</td></tr>";             
+		            	
+		                     // }	
+		            }
+		            txt += "</table>" 
+		    	document.getElementById("availablebook").innerHTML =txt; 
+		    		//obj[1].numberofbook ;
+		    	
+		    
+		    }
+		  };
+		  xhttp.open("GET", "bookavailable", true);
+		  xhttp.send();
+		}
+
+
+
+
+	function loadSugg() {
+		  var xhttp = new XMLHttpRequest();
+		  xhttp.onreadystatechange = function() {
+		    if (this.readyState == 4 && this.status == 200) {
+		    	var obj = JSON.parse(this.responseText);
+		    	
+		    	var txt=" ";
+		    	txt += "<table border='1'>"
+		    	  var i,j
+		    	  txt+="<tr><td>Comment"+"</td>"+"<td>Studentid"+"</td>"+"<td>Name"+"</td>"+"<td>EmailId"+"</td></tr>"
+		            for (i in obj) {
+		                 txt += "<tr><td>" + obj[i].comment + "</td>"+ " <td>"+ obj[i].student.id +"</td>"+ " <td>"+ obj[i].student.name+ " <td>"+ obj[i].student.emailid+  " </td> </tr>";
+		                    //for(j in obj[i].bookdetails){
+		                      //   txt+=" <td>"+ obj[i].bookdetails[j].id +"</td>"+ " <td>"+ obj[i].bookdetails[j].title+ " <td>"+ obj[i].bookdetails[j].author+  " <td>"+ obj[i].bookdetails[j].category+"</td></tr>";             
+		            	
+		                     // }	
+		            }
+		            txt += "</table>" 
+		    	document.getElementById("suggestion").innerHTML =txt; 
+		    		//obj[1].numberofbook ;
+		    	
+		    	
+		    }
+		  };
+		  xhttp.open("GET", "suggestion", true);
+		  xhttp.send();
+		}
+		
+	function loadIssued() {
+		
+		 var id = document.getElementById("studentid").value;
+		  var xhttp = new XMLHttpRequest();
+		  xhttp.onreadystatechange = function() {
+		    if (this.readyState == 4 && this.status == 200) {
+		    	var obj = JSON.parse(this.responseText);
+		    	
+		    	var txt=" ";
+		    	txt += "<table border='1'>"
+		    	  var i,j
+		    	  txt+="<tr><td>BookId"+"</td>"+"<td>Issueddate"+"</td>"+"<td>ReturnDate"+"</td>"+"<td>StudentId"+"</td>"+"<td>studentName"+"</td>"+"<td>studentEmailId"+"</td></tr>"
+		            for (i in obj) {
+		                 txt += "<tr><td>" + obj[i].id + "</td>"+ " <td>"+ obj[i].issueddate +"</td>"+" <td>"+ obj[i].returndate +"</td>"+" <td>"+ obj[i].student.id +"</td>"+ " <td>"+ obj[i].student.name+ " <td>"+ obj[i].student.emailid+  " </td> </tr>";
+		                  	
+		            }
+		            txt += "</table>" 
+		    	document.getElementById("studentdetail").innerHTML =txt; 
+		    		//obj[1].numberofbook ;
+		    	
+		    	
+		    }
+		  };
+		  xhttp.open("GET","bookissued/"+id, true);
+		  xhttp.send();
+		}
+
+	function loadDetails(){
+		  
+		   var t = document.getElementById("title").value;
+		   var c = document.getElementById("category").value;
+		   var a = document.getElementById("author").value;
+		   var xhttp = new XMLHttpRequest();
+		   xhttp.onreadystatechange = function() {
+		    if (this.readyState == 4 && this.status == 200) {
+		    //	var obj = JSON.parse(this.responseText); 
+		    	 document.getElementById("bookdetails").innerHTML = this.responseText;
+		    	
+		    }
+		  };
+		 // xhttp.open("POST", "bookdetails?title="+t"&category="+c+"&author="+a, true);
+		  xhttp.open("POST", "bookdetails/"+t+"/"+c+"/"+a, true);
+		  xhttp.send();
+		}
+		
+	function NumberOfBook(){
+		  
+		   var id = document.getElementById("bookid").value;
+		   var number = document.getElementById("bookno").value;
+		  
+		   var xhttp = new XMLHttpRequest();
+		   xhttp.onreadystatechange = function() {
+		    if (this.readyState == 4 && this.status == 200) {
+		    //	var obj = JSON.parse(this.responseText); 
+		    	 document.getElementById("numberofbook").innerHTML = this.responseText;
+		    	
+		    }
+		  };
+		 // xhttp.open("POST", "bookdetails?title="+t"&category="+c+"&author="+a, true);
+		  xhttp.open("POST", "bookavailable/"+id+"/"+number, true);
+		  xhttp.send();
+		}
+
+	function IssueBook(){
+		  
+		   var id = document.getElementById("bookidd").value;
+		   var issuedate = document.getElementById("issuedate").value;
+		   var returndate = document.getElementById("returndate").value;
+		   var studid = document.getElementById("studid").value;
+		   var xhttp = new XMLHttpRequest();
+		   xhttp.onreadystatechange = function() {
+		    if (this.readyState == 4 && this.status == 200) {
+		    //	var obj = JSON.parse(this.responseText); 
+		    	 document.getElementById("issuebook").innerHTML = this.responseText;
+		    	
+		    }
+		  };
+		 // xhttp.open("POST", "bookdetails?title="+t"&category="+c+"&author="+a, true);
+		  xhttp.open("POST", "bookissued/"+id+"/"+issuedate+"/"+returndate+"/"+studid, true);
+		  xhttp.send();
+		}	
+		
+
+</script>
+
+
+
+</body>
+</html>

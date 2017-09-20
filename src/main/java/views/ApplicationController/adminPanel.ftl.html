@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="ISO-8859-1">
+		<title>Insert title here</title>
+	</head>
+	<body>
+	   <h2>Welcome To The Admin Panel</h2>
+		<div id ="login">
+			<h4>Login detail </h4>
+			<form action="/admindetail"  method="post">
+				  Registered EmailId:
+			  	  <input type="email" name="emailid"  id="emailid"  required><br><br>
+			  	   password:
+			  	  <input type="password" name="password"  id="password" required>
+		    <button type="submit" value="send" >login</button>
+		 </form>
+		 </div>
+		<div>
+		  <a href="newregistrationadmin" >don't have account</a>
+	   	</div>
+		<script>
+		
+		// function loadLogin(){
+				  
+		// 		   var email = document.getElementById("emailid").value;
+		// 		   var password = document.getElementById("password").value;
+				  
+		// 		   var xhttp = new XMLHttpRequest();
+		// 		   xhttp.onreadystatechange = function() {
+		// 		    if (this.readyState == 4 && this.status == 200) {
+		// 		    //	var obj = JSON.parse(this.responseText); 
+		// 		    	 document.getElementById("Login").innerHTML = this.responseText;
+				    	
+		// 		    }
+		// 		  };
+		// 		 // xhttp.open("POST", "bookdetails?title="+t"&category="+c+"&author="+a, true);
+		// 		  xhttp.open("GET", "admindetail/"+email+"/"+password, true);
+		// 		  xhttp.send();
+		
+		
+			
+			// var email = document.getElementById("emailid").value;
+			 // var password = document.getElementById("password").value;
+			 
+			  //window.location.href="admindetail/"+email;	
+			  //window.location.href="adminlogin";
+			 
+			 
+		//	 }
+				
+					
+		</script>
+	</body>
+</html>

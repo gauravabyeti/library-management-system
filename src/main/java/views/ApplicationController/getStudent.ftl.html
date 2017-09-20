@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="ISO-8859-1">
+		<title>Insert title here</title>
+	</head>
+	<body>
+		<div id="availablebook">
+			<h1>Retrieve the available book</h1>
+			<button type="button" onclick="loadDoc()">click me</button>
+		</div>
+		<div id ="studentdetail">
+		<h1>Book issued by student</h1>
+		<form action="">
+		   StudentID:
+		   <input type="number" name="studentid"  id="studentid" >
+		   <br>
+		 </form> 
+		<button type="button" onclick="loadIssued()" >click me</button>
+		</div>
+		<script>
+		function loadDoc() {
+			  var xhttp = new XMLHttpRequest();
+			  xhttp.onreadystatechange = function() {
+			    if (this.readyState == 4 && this.status == 200) {
+			    	var obj = JSON.parse(this.responseText);
+			    	
+			    	//document.getElementById("demo").innerHTML =this.responseText; 
+			    	var txt=" ";
+			    	txt += "<table border='1'>"
+			    	  var i,j
+			    	  txt+="<tr><td>Number of book"+"</td>"+"<td>bookid"+"</td>"+"<td>title"+"</td>"+"<td>author"+"</td>"+"<td>category"+"</td></tr>"
+			            for (i in obj) {
+			                 txt += "<tr><td>" + obj[i].numberofbook + "</td>"+ " <td>"+ obj[i].bookdetails.id +"</td>"+ " <td>"+ obj[i].bookdetails.title+ " <td>"+ obj[i].bookdetails.author+  " <td>"+ obj[i].bookdetails.category+"</td> </tr>";
+			                    //for(j in obj[i].bookdetails){
+			                      //   txt+=" <td>"+ obj[i].bookdetails[j].id +"</td>"+ " <td>"+ obj[i].bookdetails[j].title+ " <td>"+ obj[i].bookdetails[j].author+  " <td>"+ obj[i].bookdetails[j].category+"</td></tr>";             
+			            	
+			                     // }	
+			            }
+			            txt += "</table>" 
+			    	document.getElementById("availablebook").innerHTML =txt; 
+			    		//obj[1].numberofbook ;
+			    	
+			    
+			    }
+			  };
+			  xhttp.open("GET", "bookavailable", true);
+			  xhttp.send();
+			}
+		 function loadIssued() {
+			 
+			  var id = document.getElementById("studentid").value;
+			  var xhttp = new XMLHttpRequest();
+			  xhttp.onreadystatechange = function() {
+			   if (this.readyState == 4 && this.status == 200) {
+			    	var obj = JSON.parse(this.responseText);
+			    	
+			    	var txt=" ";
+			    	txt += "<table border='1'>"
+			    	  var i,j
+			    	  txt+="<tr><td>BookId"+"</td>"+"<td>Issueddate"+"</td>"+"<td>ReturnDate"+"</td>"+"<td>StudentId"+"</td>"+"<td>studentName"+"</td>"+"<td>studentEmailId"+"</td></tr>"
+			            for (i in obj) {
+			                 txt += "<tr><td>" + obj[i].id + "</td>"+ " <td>"+ obj[i].issueddate +"</td>"+" <td>"+ obj[i].returndate +"</td>"+" <td>"+ obj[i].student.id +"</td>"+ " <td>"+ obj[i].student.name+ " <td>"+ obj[i].student.emailid+  " </td> </tr>";
+			                  	
+			            }
+			            txt += "</table>" 
+			    	document.getElementById("studentdetail").innerHTML =txt; 
+			    		//obj[1].numberofbook ;
+			    	
+			    	
+			    }
+			  };
+			  xhttp.open("GET","bookissued/"+id, true);
+			  xhttp.send();
+			}
+
+
+		
+
+		</script>
+	</body>
+</html>
